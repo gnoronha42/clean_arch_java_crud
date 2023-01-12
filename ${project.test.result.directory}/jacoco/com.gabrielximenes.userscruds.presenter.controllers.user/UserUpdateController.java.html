@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserUpdateController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UsersCrud-API</a> &gt; <a href="index.source.html" class="el_package">com.gabrielximenes.userscruds.presenter.controllers.user</a> &gt; <span class="el_source">UserUpdateController.java</span></div><h1>UserUpdateController.java</h1><pre class="source lang-java linenums">package com.gabrielximenes.userscruds.presenter.controllers.user;
+
+import com.gabrielximenes.userscruds.domain.record.UserRecord;
+import com.gabrielximenes.userscruds.domain.usecases.user.UpdateUser;
+import com.gabrielximenes.userscruds.infra.config.constants.PathRest;
+import com.gabrielximenes.userscruds.infra.config.constants.UserPathRest;
+import com.gabrielximenes.userscruds.infra.convert.UserConvert;
+import com.gabrielximenes.userscruds.infra.forms.UserForm;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.UUID;
+
+@RestController
+@CrossOrigin(&quot;*&quot;)
+@SecurityRequirement(name = &quot;Bearer Authentication&quot;)
+@RequestMapping(value = PathRest.API + PathRest.VERSION + UserPathRest.USER_UPDATE)
+@Tag(name = &quot;Usuário&quot;, description = &quot;Operações do usuário&quot;)
+public class UserUpdateController {
+
+    private final UpdateUser updateUser;
+    private final UserConvert userConvert;
+
+<span class="fc" id="L28">    public UserUpdateController(UpdateUser updateUser, UserConvert userConvert) {</span>
+<span class="fc" id="L29">        this.updateUser = updateUser;</span>
+<span class="fc" id="L30">        this.userConvert = userConvert;</span>
+<span class="fc" id="L31">    }</span>
+
+    @Operation(summary = &quot;Atualizar usuário&quot;, tags = {&quot;Usuário&quot;})
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;UserRecord&gt; updateUser(@PathVariable UUID id, @Valid @RequestBody UserForm userForm) {
+<span class="nc" id="L36">        final UserRecord user = updateUser.execute(id, userConvert.convert(userForm));</span>
+<span class="nc" id="L37">        return ResponseEntity.ok().body(user);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

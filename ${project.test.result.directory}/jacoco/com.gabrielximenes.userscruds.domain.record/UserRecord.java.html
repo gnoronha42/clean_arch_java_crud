@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserRecord.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UsersCrud-API</a> &gt; <a href="index.source.html" class="el_package">com.gabrielximenes.userscruds.domain.record</a> &gt; <span class="el_source">UserRecord.java</span></div><h1>UserRecord.java</h1><pre class="source lang-java linenums">package com.gabrielximenes.userscruds.domain.record;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gabrielximenes.userscruds.domain.entities.UserEntity;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.UUID;
+
+
+<span class="pc" id="L12">public record UserRecord(</span>
+        UUID id,
+
+        UUID createdById,
+
+        UUID modifiedById,
+
+        @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+        Date creationDate,
+
+        @JsonFormat(pattern = &quot;dd/MM/yyyy&quot;)
+        Date lastModifiedDate,
+
+        Boolean status,
+
+        String name,
+
+        String email,
+
+        String username,
+
+        String password,
+
+        String telefone
+
+) implements Serializable {
+
+    public UserRecord(String name, String email, String username, String password, String telefone) {
+<span class="fc" id="L40">        this(</span>
+                null,
+                null,
+                null,
+                null,
+                null,
+<span class="fc" id="L46">                true,</span>
+                name,
+                email,
+                username,
+                password,
+                telefone
+        );
+<span class="fc" id="L53">    }</span>
+
+    public UserRecord(UserEntity entity) {
+<span class="fc" id="L56">        this(</span>
+<span class="fc" id="L57">                entity.getId(),</span>
+<span class="fc" id="L58">                entity.getCreatedById(),</span>
+<span class="fc" id="L59">                entity.getModifiedById(),</span>
+<span class="fc" id="L60">                entity.getCreationDate(),</span>
+<span class="fc" id="L61">                entity.getLastModifiedDate(),</span>
+<span class="fc" id="L62">                entity.getStatus(),</span>
+<span class="fc" id="L63">                entity.getName(),</span>
+<span class="fc" id="L64">                entity.getEmail(),</span>
+<span class="fc" id="L65">                entity.getUsername(),</span>
+<span class="fc" id="L66">                entity.getPassword(),</span>
+<span class="fc" id="L67">                entity.getTelefone()</span>
+        );
+<span class="fc" id="L69">    }</span>
+
+    public UserEntity toEntity() {
+<span class="fc" id="L72">        final UserEntity entity = new UserEntity();</span>
+<span class="fc" id="L73">        entity.setId(this.id);</span>
+<span class="fc" id="L74">        entity.setCreatedById(this.createdById);</span>
+<span class="fc" id="L75">        entity.setCreationDate(this.creationDate);</span>
+<span class="fc" id="L76">        entity.setModifiedById(this.modifiedById);</span>
+<span class="fc" id="L77">        entity.setLastModifiedDate(this.lastModifiedDate);</span>
+<span class="fc" id="L78">        entity.setStatus(this.status);</span>
+<span class="fc" id="L79">        entity.setName(this.name);</span>
+<span class="fc" id="L80">        entity.setEmail(this.email);</span>
+<span class="fc" id="L81">        entity.setUsername(this.username);</span>
+<span class="fc" id="L82">        entity.setPassword(this.password);</span>
+<span class="fc" id="L83">        entity.setTelefone(this.telefone);</span>
+<span class="fc" id="L84">        return entity;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

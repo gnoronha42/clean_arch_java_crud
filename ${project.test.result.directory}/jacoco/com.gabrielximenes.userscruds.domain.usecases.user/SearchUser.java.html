@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchUser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UsersCrud-API</a> &gt; <a href="index.source.html" class="el_package">com.gabrielximenes.userscruds.domain.usecases.user</a> &gt; <span class="el_source">SearchUser.java</span></div><h1>SearchUser.java</h1><pre class="source lang-java linenums">package com.gabrielximenes.userscruds.domain.usecases.user;
+
+import com.gabrielximenes.userscruds.domain.record.UserRecord;
+import com.gabrielximenes.userscruds.domain.repositories.UserRepository;
+import com.gabrielximenes.userscruds.domain.validation.UtilValidation;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class SearchUser {
+
+    private final UserRepository userRepository;
+
+<span class="fc" id="L16">    public SearchUser(UserRepository userRepository) {</span>
+<span class="fc" id="L17">        this.userRepository = userRepository;</span>
+<span class="fc" id="L18">    }</span>
+
+    public UserRecord searchUserById(UUID id) {
+<span class="fc" id="L21">        UtilValidation.idNotNullValidationThrow(id);</span>
+<span class="fc" id="L22">        return userRepository.findById(id).fold(</span>
+                throwable -&gt; {
+<span class="nc" id="L24">                    throw throwable;</span>
+                },
+<span class="fc" id="L26">                value -&gt; value);</span>
+    }
+
+    public UserRecord searchUserByEmail(String email) {
+<span class="fc" id="L30">        UtilValidation.emailNotNullValidationThrow(email);</span>
+<span class="fc" id="L31">        return userRepository.findByEmail(email).fold(</span>
+                throwable -&gt; {
+<span class="nc" id="L33">                    throw throwable;</span>
+                },
+<span class="fc" id="L35">                value -&gt; value);</span>
+    }
+
+    public UserRecord searchUserByUsername(String username) {
+<span class="fc" id="L39">        UtilValidation.usernameNotNullValidationThrow(username);</span>
+<span class="fc" id="L40">        return userRepository.findByUsername(username).fold(</span>
+                throwable -&gt; {
+<span class="nc" id="L42">                    throw throwable;</span>
+                },
+<span class="fc" id="L44">                value -&gt; value);</span>
+    }
+
+    public List&lt;UserRecord&gt; searchUserAll() {
+<span class="fc" id="L48">        return userRepository.findAll();</span>
+    }
+
+    public boolean existsByEmail(String email) {
+<span class="nc" id="L52">        UtilValidation.emailNotNullValidationThrow(email);</span>
+<span class="nc" id="L53">        return userRepository.existsByEmail(email).fold(</span>
+                throwable -&gt; {
+<span class="nc" id="L55">                    throw throwable;</span>
+                },
+<span class="nc" id="L57">                value -&gt; value);</span>
+    }
+
+    public boolean existsByUsername(String username) {
+<span class="nc" id="L61">        UtilValidation.usernameNotNullValidationThrow(username);</span>
+<span class="nc" id="L62">        return userRepository.existsByUsername(username).fold(</span>
+                throwable -&gt; {
+<span class="nc" id="L64">                    throw throwable;</span>
+                },
+<span class="nc" id="L66">                value -&gt; value);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

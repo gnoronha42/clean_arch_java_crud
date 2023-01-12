@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserStatusController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UsersCrud-API</a> &gt; <a href="index.source.html" class="el_package">com.gabrielximenes.userscruds.presenter.controllers.user</a> &gt; <span class="el_source">UserStatusController.java</span></div><h1>UserStatusController.java</h1><pre class="source lang-java linenums">package com.gabrielximenes.userscruds.presenter.controllers.user;
+
+import com.gabrielximenes.userscruds.domain.record.UserRecord;
+import com.gabrielximenes.userscruds.domain.usecases.user.StatusUser;
+import com.gabrielximenes.userscruds.infra.config.constants.PathRest;
+import com.gabrielximenes.userscruds.infra.config.constants.UserPathRest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
+
+@RestController
+@CrossOrigin(&quot;*&quot;)
+@SecurityRequirement(name = &quot;Bearer Authentication&quot;)
+@RequestMapping(value = PathRest.API + PathRest.VERSION + UserPathRest.USER_STATUS)
+@Tag(name = &quot;Usuário&quot;, description = &quot;Operações do usuário&quot;)
+public class UserStatusController {
+
+    private final StatusUser statusUser;
+
+<span class="fc" id="L24">    public UserStatusController(StatusUser statusUser) {</span>
+<span class="fc" id="L25">        this.statusUser = statusUser;</span>
+<span class="fc" id="L26">    }</span>
+
+    @Operation(summary = &quot;Desativar usuário&quot;, tags = {&quot;Usuário&quot;})
+    @PatchMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;UserRecord&gt; disableUser(@PathVariable UUID id) {
+<span class="nc" id="L31">        final UserRecord user = statusUser.disableUser(id);</span>
+<span class="nc" id="L32">        return ResponseEntity.ok().body(user);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
